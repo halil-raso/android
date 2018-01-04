@@ -112,9 +112,10 @@
         android:onClick="onClickNumberButton"/>
 
     <Button
-        android:id="@+id/buttonPoint"
+        android:id="@+id/buttonFP"
         android:layout_gravity="left|top"
-        android:text="." />
+        android:text="."
+        android:onClick="onClickFPButton"/>
 
     <Button
         android:id="@+id/buttonParentheses"

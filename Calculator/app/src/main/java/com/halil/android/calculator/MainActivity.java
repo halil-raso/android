@@ -68,6 +68,14 @@ public class MainActivity extends AppCompatActivity {
         resultTextView.setText("");
     }
 
+    public void onClickFPButton(View view){
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        String currentText = resultTextView.getText().toString();
+        if(!currentText.contains(".")){
+            resultTextView.setText(currentText+".");
+        }
+    }
+
 
 
 
