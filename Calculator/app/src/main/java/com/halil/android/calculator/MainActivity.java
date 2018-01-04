@@ -56,12 +56,19 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    public void onClickBSbutton(View view){
+    public void onClickBSButton(View view){
         TextView resultTextView = findViewById(R.id.result_text_view);
         String currentText = resultTextView.getText().toString();
         if(currentText.length()>=1)
         resultTextView.setText(currentText.substring(0,currentText.length()-1));
     }
+
+    public void onClickACButton(View view){
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        resultTextView.setText("");
+    }
+
+
 
 
 }
