@@ -19,7 +19,8 @@
     <Button
         android:id="@+id/buttonAC"
         android:layout_gravity="left|top"
-        android:text="AC" />
+        android:text="AC"
+        android:onClick="onClickACButton"/>
 
     <Button
         android:id="@+id/buttonDiv"
@@ -35,7 +36,7 @@
         android:id="@+id/buttonBSpace"
         android:layout_gravity="left|top"
         android:text="BS"
-        android:onClick="onClickBSbutton"/>
+        android:onClick="onClickBSButton"/>
 
     <Button
         android:id="@+id/button_num7"
