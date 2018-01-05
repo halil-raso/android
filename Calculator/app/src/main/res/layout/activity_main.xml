@@ -4,11 +4,12 @@
     android:id="@+id/GridLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:columnCount="4"
-    android:rowCount="4"
-    android:orientation="horizontal"
     android:layout_margin="15dp"
-    tools:context=".MainActivity" >
+    android:columnCount="4"
+    android:orientation="horizontal"
+    android:rowCount="4"
+    tools:context=".MainActivity">
+
     <TextView
         android:id="@+id/result_text_view"
         android:layout_width="match_parent"
@@ -19,104 +20,109 @@
     <Button
         android:id="@+id/buttonAC"
         android:layout_gravity="left|top"
-        android:text="AC"
-        android:onClick="onClickACButton"/>
+        android:onClick="onClickACButton"
+        android:text="AC" />
 
     <Button
         android:id="@+id/buttonDiv"
         android:layout_gravity="left|top"
+        android:onClick="onClickOperatorButton"
         android:text="/" />
 
     <Button
         android:id="@+id/buttonMult"
         android:layout_gravity="left|top"
+        android:onClick="onClickOperatorButton"
         android:text="*" />
 
     <Button
         android:id="@+id/buttonBSpace"
         android:layout_gravity="left|top"
-        android:text="BS"
-        android:onClick="onClickBSButton"/>
+        android:onClick="onClickBSButton"
+        android:text="BS" />
 
     <Button
         android:id="@+id/button_num7"
         android:layout_gravity="left|top"
-        android:text="7"
-        android:onClick="onClickNumberButton"/>
+        android:onClick="onClickNumberButton"
+        android:text="7" />
 
     <Button
         android:id="@+id/button_num8"
         android:layout_gravity="left|top"
-        android:text="8"
-        android:onClick="onClickNumberButton"/>
+        android:onClick="onClickNumberButton"
+        android:text="8" />
 
     <Button
         android:id="@+id/button_num9"
         android:layout_gravity="left|top"
-        android:text="9"
-        android:onClick="onClickNumberButton"/>
+        android:onClick="onClickNumberButton"
+        android:text="9" />
 
     <Button
         android:id="@+id/buttonMod"
         android:layout_gravity="left|top"
         android:text="%" />
+
     <Button
         android:id="@+id/button_num4"
         android:layout_gravity="left|top"
-        android:text="4"
-        android:onClick="onClickNumberButton"/>
+        android:onClick="onClickNumberButton"
+        android:text="4" />
 
     <Button
         android:id="@+id/button_num5"
         android:layout_gravity="left|top"
-        android:text="5"
-        android:onClick="onClickNumberButton"/>
+        android:onClick="onClickNumberButton"
+        android:text="5" />
 
     <Button
         android:id="@+id/button_num6"
         android:layout_gravity="left|top"
-        android:text="6"
-        android:onClick="onClickNumberButton"/>
+        android:onClick="onClickNumberButton"
+        android:text="6" />
 
     <Button
         android:id="@+id/buttonSub"
         android:layout_gravity="left|top"
+        android:onClick="onClickOperatorButton"
         android:text="-" />
 
     <Button
         android:id="@+id/button_num1"
         android:layout_gravity="left|top"
-        android:text="1"
-        android:onClick="onClickNumberButton"/>
+        android:onClick="onClickNumberButton"
+        android:text="1" />
 
     <Button
         android:id="@+id/button_num2"
         android:layout_gravity="left|top"
-        android:text="2"
-        android:onClick="onClickNumberButton"/>
+        android:onClick="onClickNumberButton"
+        android:text="2" />
 
     <Button
         android:id="@+id/button_num3"
         android:layout_gravity="left|top"
-        android:text="3"
-        android:onClick="onClickNumberButton"/>
+        android:onClick="onClickNumberButton"
+        android:text="3" />
 
     <Button
         android:id="@+id/buttonAdd"
         android:layout_gravity="left|top"
-        android:text="+"
-        android:onClick="onClickAddButton"/>
+        android:onClick="onClickOperatorButton"
+        android:text="+" />
+
     <Button
         android:id="@+id/button_num0"
         android:layout_gravity="left|top"
-        android:text="0"
-        android:onClick="onClickNumberButton"/>
+        android:onClick="onClickNumberButton"
+        android:text="0" />
 
     <Button
         android:id="@+id/buttonFP"
         android:layout_gravity="left|top"
-        android:text="."
-        android:onClick="onClickFPButton"/>
+        android:onClick="onClickFPButton"
+        android:text="." />
 
     <Button
         android:id="@+id/buttonParentheses"

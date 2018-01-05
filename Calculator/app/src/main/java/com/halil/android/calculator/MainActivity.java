@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -71,34 +74,121 @@ public class MainActivity extends AppCompatActivity {
     public void onClickFPButton(View view) {
         TextView resultTextView = findViewById(R.id.result_text_view);
         String currentText = resultTextView.getText().toString();
-        if (!currentText.contains(".")) {
+        if (endsWithNumber()) {
+            String lastOperand = getLastOperand();
+            if (!lastOperand.contains("."))
+                resultTextView.setText(currentText + ".");
+        } else {
             resultTextView.setText(currentText + ".");
         }
     }
 
-    public void onClickAddButton(View view) {
+    public void onClickOperatorButton(View view) {
         TextView resultTextView = findViewById(R.id.result_text_view);
         String currentText = resultTextView.getText().toString();
+        String replacement = "";
+        switch (view.getId()) {
+            case R.id.buttonAdd:
+                replacement = "+";
+                break;
+            case R.id.buttonSub:
+                replacement = "-";
+                break;
+            case R.id.buttonDiv:
+                replacement = "/";
+                break;
+            case R.id.buttonMult:
+                replacement = "*";
+                break;
+            default:
+                replacement = "";
+                break;
+        }
         if (currentText.length() > 1) {
-            if (!currentText.endsWith("+")) {
-                if (currentText.endsWith("+.")) {
-                    resultTextView.setText(currentText.replace("+.", "+"));
-                    currentText = resultTextView.getText().toString();
-                    if (currentText.endsWith(".")) {
-                        resultTextView.setText(currentText.replace(".", "+"));
-                    } else {
-                        resultTextView.setText(currentText + "+");
-                    }
-                } else if (currentText.endsWith(".")) {
-                    resultTextView.setText(currentText.replace(".", "+"));
-                } else {
-                    resultTextView.setText(currentText + "+");
-                }
+            String lastOperator = getlastOperator();
+            if (endsWithOperator()) {
+                resultTextView.setText(replaceLast(currentText, lastOperator, replacement));
+            } else if (currentText.endsWith(lastOperator + ".")) {
+                resultTextView.setText(replaceLast(currentText, lastOperator + ".", replacement));
             } else if (currentText.endsWith(".")) {
-                resultTextView.setText(currentText.replace(".", "+"));
+                resultTextView.setText(replaceLast(currentText, ".", replacement));
+            } else {
+                resultTextView.setText(currentText + replacement);
             }
+
         }
     }
 
+
+    private boolean endsWithNumber() {
+
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        String currentText = resultTextView.getText().toString();
+        return (currentText.endsWith("0") || currentText.endsWith("1") || (currentText.endsWith("2")) ||
+                (currentText.endsWith("3")) || currentText.endsWith("4") || currentText.endsWith("5") ||
+                (currentText.endsWith("6")) || (currentText.endsWith("7")) || currentText.endsWith("8") ||
+                currentText.endsWith("9"));
+
+    }
+
+
+    private boolean endsWithOperator() {
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        String currentText = resultTextView.getText().toString();
+        return (currentText.endsWith("+") || currentText.endsWith("-") || (currentText.endsWith("/")) || (currentText.endsWith("*")));
+
+    }
+
+    private String getlastOperator() {
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        String currentText = resultTextView.getText().toString();
+        String s = "";
+        if (currentText.contains("*") || currentText.contains("/") || currentText.contains("+") || currentText.contains("-")) {
+            int lastIndexOfAdd = currentText.lastIndexOf("+");
+            int lastIndexOfSub = currentText.lastIndexOf("-");
+            int lastIndexOfDiv = currentText.lastIndexOf("/");
+            int lastIndexOfMult = currentText.lastIndexOf("*");
+            int lastIndexOfOperator = Math.max(Math.max(lastIndexOfAdd, lastIndexOfSub), Math.max(lastIndexOfMult, lastIndexOfDiv));
+            s = "" + currentText.charAt(lastIndexOfOperator);
+        }
+        return s;
+    }
+
+
+    private int getlastOperatorIndex() {
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        String currentText = resultTextView.getText().toString();
+
+        if (currentText.contains("*") || currentText.contains("/") || currentText.contains("+") || currentText.contains("-")) {
+            int lastIndexOfAdd = currentText.lastIndexOf("+");
+            int lastIndexOfSub = currentText.lastIndexOf("-");
+            int lastIndexOfDiv = currentText.lastIndexOf("/");
+            int lastIndexOfMult = currentText.lastIndexOf("*");
+            int lastIndexOfOperator = Math.max(Math.max(lastIndexOfAdd, lastIndexOfSub), Math.max(lastIndexOfMult, lastIndexOfDiv));
+            return lastIndexOfOperator;
+        }
+        return -1;
+    }
+
+
+    public String replaceLast(String string, String toReplace, String replacement) {
+        int pos = string.lastIndexOf(toReplace);
+        if (pos > -1) {
+            return string.substring(0, pos)
+                    + replacement
+                    + string.substring(pos + toReplace.length(), string.length());
+        } else {
+            return string;
+        }
+    }
+
+    private String getLastOperand() {
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        String currentText = resultTextView.getText().toString();
+        if (!endsWithOperator())
+            return currentText.substring(getlastOperatorIndex() + 1);
+        else
+            return "";
+    }
 
 }
