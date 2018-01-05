@@ -62,7 +62,8 @@
     <Button
         android:id="@+id/buttonMod"
         android:layout_gravity="left|top"
-        android:text="%" />
+        android:text="%"
+        android:onClick="onClickOperatorButton"/>
 
     <Button
         android:id="@+id/button_num4"

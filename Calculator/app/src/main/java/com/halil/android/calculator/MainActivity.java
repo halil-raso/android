@@ -100,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.buttonMult:
                 replacement = "*";
                 break;
+            case R.id.buttonMod:
+                replacement = "%";
+                break;
             default:
                 replacement = "";
                 break;
@@ -148,7 +151,8 @@ public class MainActivity extends AppCompatActivity {
             int lastIndexOfSub = currentText.lastIndexOf("-");
             int lastIndexOfDiv = currentText.lastIndexOf("/");
             int lastIndexOfMult = currentText.lastIndexOf("*");
-            int lastIndexOfOperator = Math.max(Math.max(lastIndexOfAdd, lastIndexOfSub), Math.max(lastIndexOfMult, lastIndexOfDiv));
+            int lastIndexOfMod = currentText.lastIndexOf("%");
+            int lastIndexOfOperator = Math.max(Math.max(Math.max(lastIndexOfAdd, lastIndexOfSub), Math.max(lastIndexOfMult, lastIndexOfDiv)),lastIndexOfMod);
             s = "" + currentText.charAt(lastIndexOfOperator);
         }
         return s;
@@ -164,7 +168,8 @@ public class MainActivity extends AppCompatActivity {
             int lastIndexOfSub = currentText.lastIndexOf("-");
             int lastIndexOfDiv = currentText.lastIndexOf("/");
             int lastIndexOfMult = currentText.lastIndexOf("*");
-            int lastIndexOfOperator = Math.max(Math.max(lastIndexOfAdd, lastIndexOfSub), Math.max(lastIndexOfMult, lastIndexOfDiv));
+            int lastIndexOfMod = currentText.lastIndexOf("%");
+            int lastIndexOfOperator = Math.max(Math.max(Math.max(lastIndexOfAdd, lastIndexOfSub), Math.max(lastIndexOfMult, lastIndexOfDiv)),lastIndexOfMod);
             return lastIndexOfOperator;
         }
         return -1;
