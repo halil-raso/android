@@ -128,7 +128,8 @@
     <Button
         android:id="@+id/buttonParentheses"
         android:layout_gravity="left|top"
-        android:text="()" />
+        android:text="()"
+        android:onClick="onclickParenthesesButton"/>
 
     <Button
         android:id="@+id/buttonEqual"
