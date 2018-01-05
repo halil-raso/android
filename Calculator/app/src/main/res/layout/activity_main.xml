@@ -104,7 +104,8 @@
     <Button
         android:id="@+id/buttonAdd"
         android:layout_gravity="left|top"
-        android:text="+" />
+        android:text="+"
+        android:onClick="onClickAddButton"/>
     <Button
         android:id="@+id/button_num0"
         android:layout_gravity="left|top"

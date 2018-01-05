@@ -53,30 +53,52 @@ public class MainActivity extends AppCompatActivity {
                 break;
             default:
                 break;
-
         }
     }
-    public void onClickBSButton(View view){
+
+    public void onClickBSButton(View view) {
         TextView resultTextView = findViewById(R.id.result_text_view);
         String currentText = resultTextView.getText().toString();
-        if(currentText.length()>=1)
-        resultTextView.setText(currentText.substring(0,currentText.length()-1));
+        if (currentText.length() >= 1)
+            resultTextView.setText(currentText.substring(0, currentText.length() - 1));
     }
 
-    public void onClickACButton(View view){
+    public void onClickACButton(View view) {
         TextView resultTextView = findViewById(R.id.result_text_view);
         resultTextView.setText("");
     }
 
-    public void onClickFPButton(View view){
+    public void onClickFPButton(View view) {
         TextView resultTextView = findViewById(R.id.result_text_view);
         String currentText = resultTextView.getText().toString();
-        if(!currentText.contains(".")){
-            resultTextView.setText(currentText+".");
+        if (!currentText.contains(".")) {
+            resultTextView.setText(currentText + ".");
         }
     }
 
-
+    public void onClickAddButton(View view) {
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        String currentText = resultTextView.getText().toString();
+        if (currentText.length() > 1) {
+            if (!currentText.endsWith("+")) {
+                if (currentText.endsWith("+.")) {
+                    resultTextView.setText(currentText.replace("+.", "+"));
+                    currentText = resultTextView.getText().toString();
+                    if (currentText.endsWith(".")) {
+                        resultTextView.setText(currentText.replace(".", "+"));
+                    } else {
+                        resultTextView.setText(currentText + "+");
+                    }
+                } else if (currentText.endsWith(".")) {
+                    resultTextView.setText(currentText.replace(".", "+"));
+                } else {
+                    resultTextView.setText(currentText + "+");
+                }
+            } else if (currentText.endsWith(".")) {
+                resultTextView.setText(currentText.replace(".", "+"));
+            }
+        }
+    }
 
 
 }
