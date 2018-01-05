@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             String lastOperand = getLastOperand();
             if (!lastOperand.contains("."))
                 resultTextView.setText(currentText + ".");
-        } else {
+        } else if (!currentText.endsWith(".")){
             resultTextView.setText(currentText + ".");
         }
     }
