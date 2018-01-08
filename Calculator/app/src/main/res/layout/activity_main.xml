@@ -134,6 +134,7 @@
     <Button
         android:id="@+id/buttonEqual"
         android:layout_gravity="left|top"
-        android:text="=" />
+        android:text="="
+        android:onClick="onClickequalButton"/>
 
 </GridLayout>

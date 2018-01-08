@@ -1,15 +1,15 @@
 package com.halil.android.calculator;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.halil.android.utilities.StackHelper;
 
-import java.util.HashMap;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,8 +23,11 @@ public class MainActivity extends AppCompatActivity {
     public void onClickNumberButton(View view) {
         TextView resultTextView = findViewById(R.id.result_text_view);
         String currentText = resultTextView.getText().toString();
-        if (currentText.endsWith(")")){
-            currentText =  currentText + "x";
+        if(currentText.contains("= ")){
+            currentText="";
+        }
+        if (currentText.endsWith(")")) {
+            currentText = currentText + "x";
         }
         switch (view.getId()) {
             case R.id.button_num0:
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
             default:
                 break;
         }
+
     }
 
     public void onClickBSButton(View view) {
@@ -81,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             String lastOperand = getLastOperand();
             if (!lastOperand.contains("."))
                 resultTextView.setText(currentText + ".");
-        } else if (!currentText.endsWith(".")){
+        } else if (!currentText.endsWith(".")) {
             resultTextView.setText(currentText + ".");
         }
     }
@@ -110,37 +114,43 @@ public class MainActivity extends AppCompatActivity {
                 replacement = "";
                 break;
         }
-        if (currentText.length() > 1) {
-            String lastOperator = getlastOperator();
-            if (endsWithOperator()) {
-                resultTextView.setText(replaceLast(currentText, lastOperator, replacement));
-            } else if (currentText.endsWith(lastOperator + ".")) {
-                resultTextView.setText(replaceLast(currentText, lastOperator + ".", replacement));
-            } else if (currentText.endsWith(".")) {
-                resultTextView.setText(replaceLast(currentText, ".", replacement));
-            } else if (!currentText.endsWith("(")){
-                resultTextView.setText(currentText + replacement);
+        if (currentText.length() > 0) {
+            if (currentText.contains("= ")) {
+                currentText = (currentText.split("= ")[1] + replacement);
+                resultTextView.setText(currentText);
+            } else {
+                String lastOperator = getlastOperator();
+                if (endsWithOperator()) {
+                    resultTextView.setText(replaceLast(currentText, lastOperator, replacement));
+                } else if (currentText.endsWith(lastOperator + ".")) {
+                    resultTextView.setText(replaceLast(currentText, lastOperator + ".", replacement));
+                } else if (currentText.endsWith(".")) {
+                    resultTextView.setText(replaceLast(currentText, ".", replacement));
+                } else if (!currentText.endsWith("(")) {
+                    resultTextView.setText(currentText + replacement);
+                }
             }
         }
     }
-    public void onclickParenthesesButton(View  view){
+
+    public void onclickParenthesesButton(View view) {
 
         TextView resultTextView = findViewById(R.id.result_text_view);
         String currentText = resultTextView.getText().toString();
-        if (endsWithOperator()){
+        if (endsWithOperator()) {
             currentText = currentText + "(";
-        } else if(endsWithNumber()){
+        } else if (endsWithNumber()) {
             boolean openedFlag = existsOpenedParentheses();
-            if (!openedFlag){
+            if (!openedFlag) {
                 currentText = currentText + "x(";
             } else {
                 currentText = currentText + ")";
             }
-        } else if (currentText.endsWith("(")){
+        } else if (currentText.endsWith("(")) {
             currentText = currentText + "(";
-        } else if (currentText.endsWith(")")){
+        } else if (currentText.endsWith(")")) {
             boolean openedFlag = existsOpenedParentheses();
-            if(openedFlag){
+            if (openedFlag) {
                 currentText = currentText + ")";
             } else {
                 currentText = currentText + "x(";
@@ -149,26 +159,25 @@ public class MainActivity extends AppCompatActivity {
         resultTextView.setText(currentText);
 
     }
-    private boolean existsOpenedParentheses(){
+
+    private boolean existsOpenedParentheses() {
         TextView resultTextView = findViewById(R.id.result_text_view);
         String s = resultTextView.getText().toString();
-        StackHelper stack =  new StackHelper(s.length());
-            for (int i=0; i<s.length(); i++){
-                if(s.charAt(i)=="(".charAt(0)){
-                    stack.push(s.charAt(i));
-                } else if(s.charAt(i)==")".charAt(0)){
-                    stack.pop();
-                }
+        StackHelper stack = new StackHelper(s.length());
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == "(".charAt(0)) {
+                stack.push(s.charAt(i));
+            } else if (s.charAt(i) == ")".charAt(0)) {
+                stack.pop();
             }
-            if(!stack.isEmpty()){
-                if("(".charAt(0)==stack.peek()){
-                    return true;
-                }
+        }
+        if (!stack.isEmpty()) {
+            if ("(".charAt(0) == stack.peek()) {
+                return true;
             }
-            return false;
+        }
+        return false;
     }
-
-
 
 
     private boolean endsWithNumber() {
@@ -200,7 +209,7 @@ public class MainActivity extends AppCompatActivity {
             int lastIndexOfDiv = currentText.lastIndexOf("/");
             int lastIndexOfMult = currentText.lastIndexOf("*");
             int lastIndexOfMod = currentText.lastIndexOf("%");
-            int lastIndexOfOperator = Math.max(Math.max(Math.max(lastIndexOfAdd, lastIndexOfSub), Math.max(lastIndexOfMult, lastIndexOfDiv)),lastIndexOfMod);
+            int lastIndexOfOperator = Math.max(Math.max(Math.max(lastIndexOfAdd, lastIndexOfSub), Math.max(lastIndexOfMult, lastIndexOfDiv)), lastIndexOfMod);
             s = "" + currentText.charAt(lastIndexOfOperator);
         }
         return s;
@@ -217,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
             int lastIndexOfDiv = currentText.lastIndexOf("/");
             int lastIndexOfMult = currentText.lastIndexOf("*");
             int lastIndexOfMod = currentText.lastIndexOf("%");
-            int lastIndexOfOperator = Math.max(Math.max(Math.max(lastIndexOfAdd, lastIndexOfSub), Math.max(lastIndexOfMult, lastIndexOfDiv)),lastIndexOfMod);
+            int lastIndexOfOperator = Math.max(Math.max(Math.max(lastIndexOfAdd, lastIndexOfSub), Math.max(lastIndexOfMult, lastIndexOfDiv)), lastIndexOfMod);
             return lastIndexOfOperator;
         }
         return -1;
@@ -242,6 +251,46 @@ public class MainActivity extends AppCompatActivity {
             return currentText.substring(getlastOperatorIndex() + 1);
         else
             return "";
+    }
+
+    public void onClickequalButton(View view) {
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        String currentText = resultTextView.getText().toString();
+        if (currentText.contains("= ")) {
+            currentText = (currentText.split("= ")[1]);
+            resultTextView.setText(currentText);
+        } else {
+            boolean valid = checkForValidity();
+            if (valid) {
+                ScriptEngine engine = new ScriptEngineManager().getEngineByName("rhino");
+                try {
+                    currentText = currentText + "\n" + "= " + (engine.eval(currentText));
+                } catch (Exception e) {
+                    Toast.makeText(this, "Exception Raised", Toast.LENGTH_SHORT).show();
+                }
+            }
+            resultTextView.setText(currentText);
+        }
+    }
+
+    private boolean asInt() {
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        String currentText = resultTextView.getText().toString();
+        if (!currentText.contains(".")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean checkForValidity() {
+        if (existsOpenedParentheses()) {
+            return false;
+        } else if (endsWithOperator()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }
