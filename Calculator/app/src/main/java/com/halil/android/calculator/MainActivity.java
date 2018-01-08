@@ -18,13 +18,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
     }
 
     public void onClickNumberButton(View view) {
         TextView resultTextView = findViewById(R.id.result_text_view);
         String currentText = resultTextView.getText().toString();
+        if (currentText.endsWith(")")){
+            currentText =  currentText + "x";
+        }
         switch (view.getId()) {
             case R.id.button_num0:
                 resultTextView.setText(currentText + "0");
@@ -124,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void onclickParenthesesButton(View  view){
+
         TextView resultTextView = findViewById(R.id.result_text_view);
         String currentText = resultTextView.getText().toString();
         if (endsWithOperator()){
