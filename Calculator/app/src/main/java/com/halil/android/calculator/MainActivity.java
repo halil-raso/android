@@ -118,10 +118,9 @@ public class MainActivity extends AppCompatActivity {
                 resultTextView.setText(replaceLast(currentText, lastOperator + ".", replacement));
             } else if (currentText.endsWith(".")) {
                 resultTextView.setText(replaceLast(currentText, ".", replacement));
-            } else {
+            } else if (!currentText.endsWith("(")){
                 resultTextView.setText(currentText + replacement);
             }
-
         }
     }
     public void onclickParenthesesButton(View  view){
