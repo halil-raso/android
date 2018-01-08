@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.halil.android.utilities.StackHelper;
+
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
@@ -122,8 +124,50 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void onclickParenthesesButton(View  view){
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        String currentText = resultTextView.getText().toString();
+        if (endsWithOperator()){
+            currentText = currentText + "(";
+        } else if(endsWithNumber()){
+            boolean openedFlag = existsOpenedParentheses();
+            if (!openedFlag){
+                currentText = currentText + "x(";
+            } else {
+                currentText = currentText + ")";
+            }
+        } else if (currentText.endsWith("(")){
+            currentText = currentText + "(";
+        } else if (currentText.endsWith(")")){
+            boolean openedFlag = existsOpenedParentheses();
+            if(openedFlag){
+                currentText = currentText + ")";
+            } else {
+                currentText = currentText + "x(";
+            }
+        }
+        resultTextView.setText(currentText);
 
     }
+    private boolean existsOpenedParentheses(){
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        String s = resultTextView.getText().toString();
+        StackHelper stack =  new StackHelper(s.length());
+            for (int i=0; i<s.length(); i++){
+                if(s.charAt(i)=="(".charAt(0)){
+                    stack.push(s.charAt(i));
+                } else if(s.charAt(i)==")".charAt(0)){
+                    stack.pop();
+                }
+            }
+            if(!stack.isEmpty()){
+                if("(".charAt(0)==stack.peek()){
+                    return true;
+                }
+            }
+            return false;
+    }
+
+
 
 
     private boolean endsWithNumber() {
