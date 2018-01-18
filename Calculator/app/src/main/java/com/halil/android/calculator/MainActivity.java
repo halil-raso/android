@@ -264,7 +264,12 @@ public class MainActivity extends AppCompatActivity {
             if (valid) {
                 ScriptEngine engine = new ScriptEngineManager().getEngineByName("rhino");
                 try {
-                    currentText = currentText + "\n" + "= " + (engine.eval(currentText));
+                    String s = "" + (engine.eval(currentText));
+                    if(isAllInteger()){
+                        s = s.substring(0,s.lastIndexOf('.'));
+                    }
+                    currentText = currentText + "\n" + "= " + s;
+
                 } catch (Exception e) {
                     Toast.makeText(this, "Exception Raised", Toast.LENGTH_SHORT).show();
                 }
@@ -287,6 +292,18 @@ public class MainActivity extends AppCompatActivity {
         if (existsOpenedParentheses()) {
             return false;
         } else if (endsWithOperator()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    public boolean isAllInteger(){
+        TextView resultTextView = findViewById(R.id.result_text_view);
+        String currentText = resultTextView.getText().toString();
+        String s = currentText.split("=")[0];
+        if(s.contains(".")){
             return false;
         } else {
             return true;
