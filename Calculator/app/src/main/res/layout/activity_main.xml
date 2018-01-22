@@ -12,6 +12,7 @@
     <TextView
         android:id="@+id/result_text_view"
         android:layout_width="match_parent"
+        android:gravity="right|top"
         android:layout_height="190dp"
         android:layout_weight="1"
         android:textColor="@android:color/black"
