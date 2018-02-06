@@ -83,8 +83,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 new String[] { Integer.toString(id) });
     }
 
-    public ArrayList<String> getAllArticles() {
-        ArrayList<String> array_list = new ArrayList<String>();
+    public ArrayList<Article> getAllArticles() {
+        ArrayList<Article> array_list = new ArrayList<Article>();
 
         //hp = new HashMap();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -92,7 +92,7 @@ public class DBHelper extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            array_list.add(res.getString(res.getColumnIndex(ARTICLES_COLUMN_TILTE)));
+            array_list.add(new Article(res.getString(res.getColumnIndex(ARTICLES_COLUMN_ID)),res.getString(res.getColumnIndex(ARTICLES_COLUMN_TILTE)),res.getString(res.getColumnIndex(ARTICLES_COLUMN_CONTENT)));
             res.moveToNext();
         }
         return array_list;

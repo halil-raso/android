@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ShareActionProvider;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,40 +17,32 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ArticlesListActivity extends AppCompatActivity {
     ListView listView;
-    ArrayList<String> articles;
+    private List<Article> articlesList = new ArrayList<>();
     DBHelper articlesDB;
+    private RecyclerView recyclerView;
+    private ArticlesAdapter adapter;
     private ShareActionProvider share=null;
-    private static ArrayAdapter<String> adapter;
+    //private static ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_articles_list);
         share = new ShareActionProvider(this);
-        listView= findViewById(R.id.article_list);
+        //listView= findViewById(R.id.article_list);
+
         articlesDB = new DBHelper(this);
-        articles= articlesDB.getAllArticles();
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, articles);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        articlesList= articlesDB.getAllArticles();
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // ListView Clicked item index
-                int itemPosition     = position;
-                // ListView Clicked item value
-                String  itemValue    = (String) listView.getItemAtPosition(position);
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
-            }
-
-        });
+        adapter = new ArticlesAdapter(articlesList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
 
 
     }
