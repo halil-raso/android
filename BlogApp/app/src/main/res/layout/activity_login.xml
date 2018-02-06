@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/usernameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="178dp"
+        android:text="Username:" />
+
+    <TextView
+        android:id="@+id/passwordTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/usernameTextView"
+        android:layout_below="@+id/usernameTextView"
+        android:layout_marginTop="36dp"
+        android:text="Password:" />
+
+    <EditText
+        android:id="@+id/usernameEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/usernameTextView"
+        android:layout_alignBottom="@+id/usernameTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="23dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/usernameEditText"
+        android:layout_below="@+id/usernameEditText"
+        android:layout_marginTop="13dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/passwordEditText"
+        android:layout_below="@+id/passwordEditText"
+        android:layout_marginTop="29dp"
+        android:text="Login"
+        android:onClick="doLogin"/>
+</RelativeLayout>
