@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BlogApp</string>
+    <string name="appbar_scrolling_view_behavior">sasas</string>
 </resources>

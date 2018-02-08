@@ -24,13 +24,13 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             content = (TextView) view.findViewById(R.id.content);
-
         }
+
     }
 
 
-    public ArticlesAdapter(List<Article> moviesList) {
-        this.articlesList = moviesList;
+    public ArticlesAdapter(List<Article> articlesList) {
+        this.articlesList = articlesList;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Article movie = articlesList.get(position);
         holder.title.setText(movie.getTitle());
-        holder.content.setText(movie.getContent());
+        holder.content.setText(movie.getContent().split("\\n")[0]);
     }
 
     @Override

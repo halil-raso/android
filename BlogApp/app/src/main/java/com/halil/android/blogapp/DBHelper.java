@@ -92,9 +92,23 @@ public class DBHelper extends SQLiteOpenHelper {
         res.moveToFirst();
 
         while(res.isAfterLast() == false){
-            array_list.add(new Article(res.getString(res.getColumnIndex(ARTICLES_COLUMN_ID)),res.getString(res.getColumnIndex(ARTICLES_COLUMN_TILTE)),res.getString(res.getColumnIndex(ARTICLES_COLUMN_CONTENT)));
+            array_list.add(new Article(res.getString(res.getColumnIndex(ARTICLES_COLUMN_ID)),res.getString(res.getColumnIndex(ARTICLES_COLUMN_TILTE)),res.getString(res.getColumnIndex(ARTICLES_COLUMN_CONTENT))));
             res.moveToNext();
         }
         return array_list;
+    }
+    public Article getArticleFromPositon(int position){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from articles", null );
+        res.moveToFirst();
+        int pos = 0;
+        while(res.isAfterLast() == false){
+            if(position==pos) {
+                return new Article(res.getString(res.getColumnIndex(ARTICLES_COLUMN_ID)), res.getString(res.getColumnIndex(ARTICLES_COLUMN_TILTE)), res.getString(res.getColumnIndex(ARTICLES_COLUMN_CONTENT)));
+            }
+            pos++;
+            res.moveToNext();
+        }
+        return null;
     }
 }

@@ -16,16 +16,26 @@ public class NewArticleActivity extends AppCompatActivity implements View.OnClic
     Button insertButton;
     EditText titleEditText;
     EditText contentEditText;
-
+    private String articleId = "";
+    private String articleTitle = "";
+    private String articleContent = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_article_layout);
+        Intent intent = getIntent();
         insertButton = findViewById(R.id.insert_article_btn);
         titleEditText = findViewById(R.id.article_title);
         contentEditText = findViewById(R.id.article_content);
         insertButton.setOnClickListener(this);
+        if(intent.hasExtra("ARTICLE_ID")){
+            articleId = intent.getStringExtra("ARTICLE_ID");
+            articleTitle = intent.getStringExtra("ARTICLE_TITLE");
+            articleContent = intent.getStringExtra("ARTICLE_CONTENT");
+            titleEditText.setText(articleTitle);
+            contentEditText.setText(articleContent);
+        }
 
     }
 
@@ -35,9 +45,10 @@ public class NewArticleActivity extends AppCompatActivity implements View.OnClic
         String title = titleEditText.getText().toString();
         String content = contentEditText.getText().toString();
         mydb.insertArticle(title, content);
-        ArrayList<String> articles = mydb.getAllArticles();
+        ArrayList<Article> articles = mydb.getAllArticles();
         Log.d("JOJO", "" + articles.size());
         Intent showAllArticlesIntent = new Intent(this, ArticlesListActivity.class);
         startActivity(showAllArticlesIntent);
     }
+
 }

@@ -8,11 +8,15 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.Checkable;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -25,39 +29,56 @@ public class ArticlesListActivity extends AppCompatActivity {
     DBHelper articlesDB;
     private RecyclerView recyclerView;
     private ArticlesAdapter adapter;
-    private ShareActionProvider share=null;
-    //private static ArrayAdapter<String> adapter;
+    private ShareActionProvider share = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_articles_list);
         share = new ShareActionProvider(this);
-        //listView= findViewById(R.id.article_list);
-
         articlesDB = new DBHelper(this);
-        articlesList= articlesDB.getAllArticles();
+        articlesList = articlesDB.getAllArticles();
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
         adapter = new ArticlesAdapter(articlesList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        final RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                DBHelper mydb = new DBHelper(getApplicationContext());
+                Article article = mydb.getArticleFromPositon(position);
+                /*Intent newArticleIntent = new Intent(getApplicationContext(), NewArticleActivity.class);
+                newArticleIntent.putExtra("ARTICLE_ID",article.getId());
+                newArticleIntent.putExtra("ARTICLE_TITLE",article.getTitle());
+                newArticleIntent.putExtra("ARTICLE_CONTENT",article.getContent());
+                startActivity(newArticleIntent);
+                */
+            }
 
+            @Override
+            public void onItemLongClick(View view, int position) {
+                CheckBox checkBox = findViewById(R.id.checkBox);
+                checkBox.setVisibility(View.VISIBLE);
 
+            }
+        }));
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menut,menu);
+        getMenuInflater().inflate(R.menu.menut, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.newAction:
-                Intent newArticleIntent = new Intent(this,NewArticleActivity.class);
+                Intent newArticleIntent = new Intent(this, NewArticleActivity.class);
                 startActivity(newArticleIntent);
                 break;
             case R.id.emailAction:

@@ -11,11 +11,19 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/row_padding_vertical">
 
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/checkBox"
         android:textColor="@color/title"
         android:textSize="16dp"
         android:textStyle="bold" />
@@ -24,6 +32,7 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title" />
+        android:layout_below="@id/title"
+        android:layout_alignLeft="@id/title"/>
 
 </RelativeLayout>
