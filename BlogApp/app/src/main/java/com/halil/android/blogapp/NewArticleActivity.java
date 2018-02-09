@@ -36,7 +36,6 @@ public class NewArticleActivity extends AppCompatActivity implements View.OnClic
             titleEditText.setText(articleTitle);
             contentEditText.setText(articleContent);
         }
-
     }
 
     @Override
@@ -44,11 +43,17 @@ public class NewArticleActivity extends AppCompatActivity implements View.OnClic
         DBHelper mydb = new DBHelper(this);
         String title = titleEditText.getText().toString();
         String content = contentEditText.getText().toString();
-        mydb.insertArticle(title, content);
-        ArrayList<Article> articles = mydb.getAllArticles();
-        Log.d("JOJO", "" + articles.size());
+        if(articleId.equals("")){
+            mydb.insertArticle(title, content);
+            Log.d("halil","insert new article: "+content);
+        } else{
+            mydb.updateArticle(articleId,title,content);
+            Log.d("halil","update with new content:"+content);
+        }
         Intent showAllArticlesIntent = new Intent(this, ArticlesListActivity.class);
         startActivity(showAllArticlesIntent);
+
+
     }
 
 }

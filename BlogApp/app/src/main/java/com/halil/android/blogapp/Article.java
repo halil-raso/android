@@ -17,7 +17,7 @@ public class Article {
     }
 
     public String getId() {
-        return title;
+        return id;
     }
 
     public void setId(String id) {

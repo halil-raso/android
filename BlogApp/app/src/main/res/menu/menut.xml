@@ -16,5 +16,8 @@
     <item android:id="@+id/callAction"
         android:title="Call">
     </item>
+    <item android:id="@+id/removeAction"
+        android:title="Remove">
+    </item>
 
 </menu>

@@ -42,26 +42,28 @@ public class ArticlesListActivity extends AppCompatActivity {
 
         adapter = new ArticlesAdapter(articlesList);
         final RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(llm);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                DBHelper mydb = new DBHelper(getApplicationContext());
+                /*DBHelper mydb = new DBHelper(getApplicationContext());
                 Article article = mydb.getArticleFromPositon(position);
-                /*Intent newArticleIntent = new Intent(getApplicationContext(), NewArticleActivity.class);
+                Intent newArticleIntent = new Intent(getApplicationContext(), NewArticleActivity.class);
                 newArticleIntent.putExtra("ARTICLE_ID",article.getId());
                 newArticleIntent.putExtra("ARTICLE_TITLE",article.getTitle());
                 newArticleIntent.putExtra("ARTICLE_CONTENT",article.getContent());
-                startActivity(newArticleIntent);
-                */
+                startActivity(newArticleIntent);*/
             }
 
             @Override
             public void onItemLongClick(View view, int position) {
                 CheckBox checkBox = findViewById(R.id.checkBox);
                 checkBox.setVisibility(View.VISIBLE);
+                adapter.flag = true;
+                adapter.notifyDataSetChanged();
 
             }
         }));
@@ -100,6 +102,12 @@ public class ArticlesListActivity extends AppCompatActivity {
                 Intent mapIntent = new Intent(Intent.ACTION_DIAL, location);
                 startActivity(mapIntent);
                 break;
+            case R.id.removeAction:
+                DBHelper mydb =  new DBHelper(this);
+                String[] ids=
+                mydb.deleteArticle();
+                Intent mapIntent = new Intent(Intent.ACTION_DIAL, location);
+                startActivity(mapIntent);
         }
         return super.onOptionsItemSelected(item);
     }

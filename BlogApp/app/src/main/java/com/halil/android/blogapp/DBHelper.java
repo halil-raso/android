@@ -67,12 +67,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return numRows;
     }
 
-    public boolean updateArticle (Integer id, String title, String content) {
+    public boolean updateArticle (String id, String title, String content) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("title", title);
         contentValues.put("content", content);
-        db.update("articles", contentValues, "id = ? ", new String[] { Integer.toString(id) } );
+        db.update("articles", contentValues, "id = ? ", new String[] {id} );
         return true;
     }
 
