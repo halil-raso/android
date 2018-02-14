@@ -1,70 +1,48 @@
 package com.halil.android.blogapp;
 
-/**
- * Created by halil on 06.02.2018.
- */
-
-
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.MyViewHolder> {
-
-    private List<Article> articlesList;
-    public boolean flag=false;
-    HashMap<String, Boolean> selectedItems;
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, content;
-
-        public MyViewHolder(View view) {
-            super(view);
-            title = (TextView) view.findViewById(R.id.title);
-            content = (TextView) view.findViewById(R.id.content);
-        }
-
-    }
+/**
+ * Created by halil on 14.02.2018.
+ */
 
 
-    public ArticlesAdapter(List<Article> articlesList) {
-        this.articlesList = articlesList;
-        selectedItems = new HashMap<>(articlesList.size());
+
+public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerViewHolders>{
+
+    private ArrayList<Article> itemList;
+    private Context context;
+
+    public ArticlesAdapter(Context context, ArrayList<Article> itemList) {
+        this.itemList = itemList;
+        this.context = context;
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.article_list_row, parent, false);
-
-        return new MyViewHolder(itemView);
+    public RecyclerViewHolders onCreateViewHolder(ViewGroup parent, int viewType) {
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, null);
+        RecyclerViewHolders rcv = new RecyclerViewHolders(layoutView);
+        return rcv;
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        if(flag){
-            holder.itemView.findViewById(R.id.checkBox).setVisibility(View.VISIBLE);
-        }
-        Article movie = articlesList.get(position);
-        holder.title.setText(movie.getTitle());
-        holder.content.setText(movie.getContent().split("\\n")[0]);
+    public void onBindViewHolder(RecyclerViewHolders holder, int position) {
+        Log.d("halil",""+holder);
+        holder.articleTitle.setText("Song Title: " + itemList.get(position).getTitle());
+        holder.articleContent.setText("Song Year: " + itemList.get(position).getContent());
+        holder.articleID.setText("Song Author: " + itemList.get(position).getId());
     }
 
     @Override
     public int getItemCount() {
-        return articlesList.size();
-    }
-    public void setSelectedItem(String id, boolean f){
-        selectedItems.
-        if(selectedItems.containsKey(id)){
-            selectedItems.replace(id,f);
-        }
+        return this.itemList.size();
     }
 }
+

@@ -1,6 +1,5 @@
 package com.halil.android.blogapp;
 
-import android.app.Application;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

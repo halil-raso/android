@@ -5,6 +5,7 @@ package com.halil.android.blogapp;
  */
 
 public class Article {
+
     private String id,title, content;
 
     public Article() {
