@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 
 public class NewArticleActivity extends AppCompatActivity implements View.OnClickListener {
+
     Button insertButton;
     EditText titleEditText;
     EditText contentEditText;
@@ -29,7 +30,7 @@ public class NewArticleActivity extends AppCompatActivity implements View.OnClic
         titleEditText = findViewById(R.id.article_title);
         contentEditText = findViewById(R.id.article_content);
         insertButton.setOnClickListener(this);
-        if(intent.hasExtra("ARTICLE_ID")){
+        if (intent.hasExtra("ARTICLE_ID")) {
             articleId = intent.getStringExtra("ARTICLE_ID");
             articleTitle = intent.getStringExtra("ARTICLE_TITLE");
             articleContent = intent.getStringExtra("ARTICLE_CONTENT");
@@ -40,19 +41,19 @@ public class NewArticleActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View view) {
+
         DBHelper mydb = new DBHelper(this);
         String title = titleEditText.getText().toString();
         String content = contentEditText.getText().toString();
-        if(articleId.equals("")){
+        if (articleId.equals("")) {
             mydb.insertArticle(title, content);
-            Log.d("halil","insert new article: "+content);
-        } else{
-            mydb.updateArticle(articleId,title,content);
-            Log.d("halil","update with new content:"+content);
+            Log.d("halil", "insert new article: " + content);
+        } else {
+            mydb.updateArticle(articleId, title, content);
+            Log.d("halil", "update with new content:" + content);
         }
-        Intent showAllArticlesIntent = new Intent(this, ArticlesListActivity.class);
+        Intent showAllArticlesIntent = new Intent(this, MainActivity.class);
         startActivity(showAllArticlesIntent);
-
 
     }
 
