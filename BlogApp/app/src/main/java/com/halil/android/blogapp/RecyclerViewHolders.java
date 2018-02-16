@@ -16,6 +16,7 @@ public class RecyclerViewHolders extends RecyclerView.ViewHolder
         implements View.OnClickListener, View.OnLongClickListener {
 
     public static boolean flag = false;
+    public static ArrayList<Integer> selectedItems = new ArrayList<>();
     public TextView articleTitle;
     public TextView articleContent;
     public TextView articleID;
@@ -35,15 +36,15 @@ public class RecyclerViewHolders extends RecyclerView.ViewHolder
     public void onClick(View view) {
 
         if (flag) {
-            if (UtilityClass.s.contains(getAdapterPosition())) {
-                UtilityClass.s.remove(UtilityClass.s.indexOf(getAdapterPosition()));
+            if (RecyclerViewHolders.selectedItems.contains(getAdapterPosition())) {
+                RecyclerViewHolders.selectedItems.remove(RecyclerViewHolders.selectedItems.indexOf(getAdapterPosition()));
                 view.setSelected(false);
             } else {
-                UtilityClass.s.add(getAdapterPosition());
+                RecyclerViewHolders.selectedItems.add(getAdapterPosition());
                 view.setSelected(true);
             }
         }
-        if (flag && UtilityClass.s.size() == 0) {
+        if (flag && RecyclerViewHolders.selectedItems.size() == 0) {
             flag = false;
         }
 
@@ -52,17 +53,17 @@ public class RecyclerViewHolders extends RecyclerView.ViewHolder
     @Override
     public boolean onLongClick(View view) {
 
-        if (UtilityClass.s.size() == 0) {
+        if (RecyclerViewHolders.selectedItems.size() == 0) {
             flag = true;
         }
-        if (UtilityClass.s.contains(getAdapterPosition())) {
-            UtilityClass.s.remove(UtilityClass.s.indexOf(getAdapterPosition()));
+        if (RecyclerViewHolders.selectedItems.contains(getAdapterPosition())) {
+            RecyclerViewHolders.selectedItems.remove(RecyclerViewHolders.selectedItems.indexOf(getAdapterPosition()));
             view.setSelected(false);
         } else {
-            UtilityClass.s.add(getAdapterPosition());
+            RecyclerViewHolders.selectedItems.add(getAdapterPosition());
             view.setSelected(true);
         }
-        if (flag && UtilityClass.s.size() == 0) {
+        if (flag && RecyclerViewHolders.selectedItems.size() == 0) {
             flag = false;
         }
         return true;

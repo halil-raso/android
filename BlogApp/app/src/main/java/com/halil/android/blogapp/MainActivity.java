@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -73,11 +74,35 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(mapIntent);
                 break;
             case R.id.removeAction:
-                /*DBHelper mydb =  new DBHelper(this);
-                String[] ids=
-                        mydb.deleteArticle();
-                Intent mapIntent = new Intent(Intent.ACTION_DIAL, location);
-                startActivity(mapIntent);*/
+
+                DBHelper mydb =  new DBHelper(this);
+                String[] ids = new String[RecyclerViewHolders.selectedItems.size()];
+                for(int i=0; i<RecyclerViewHolders.selectedItems.size(); i++){
+                    ids[i] = mydb.getArticleFromPositon(RecyclerViewHolders.selectedItems.get(i)).getId();
+                }
+
+                for(int n=0; n<RecyclerViewHolders.selectedItems.size();n++){
+                    RecyclerViewHolders.selectedItems.remove(n);
+                }
+
+                for (int j=0 ; j<ids.length; j++){
+                    Article article = mydb.getArticle(ids[j]);
+                    int index = -1;
+                    for(int k=0; k<articlesList.size(); k++){
+                        if (article.getId().equals(articlesList.get(k).getId())){
+                            index = k;
+                            break;
+                        }
+                    }
+                    if(index!=-1){
+                        articlesList.remove(index);
+                        mydb.deleteArticle(ids[j]);
+                    }
+                    ArticlesAdapter.flag = true;
+                    adapter.notifyDataSetChanged();
+                }
+                RecyclerViewHolders.selectedItems.clear();
+
         }
         return super.onOptionsItemSelected(item);
 

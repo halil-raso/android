@@ -75,11 +75,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    public Integer deleteArticle (Integer id) {
+    public Integer deleteArticle (String id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete("articles",
                 "id = ? ",
-                new String[] { Integer.toString(id) });
+                new String[] { id });
     }
 
     public ArrayList<Article> getAllArticles() {
@@ -109,5 +109,17 @@ public class DBHelper extends SQLiteOpenHelper {
             res.moveToNext();
         }
         return null;
+    }
+
+    public Article getArticle(String id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from articles where id="+id+"", null );
+        res.moveToFirst();
+        Article article =null;
+        while(res.isAfterLast() == false){
+            article= new Article(res.getString(res.getColumnIndex(ARTICLES_COLUMN_ID)), res.getString(res.getColumnIndex(ARTICLES_COLUMN_TILTE)), res.getString(res.getColumnIndex(ARTICLES_COLUMN_CONTENT)));
+            res.moveToNext();
+        }
+        return article;
     }
 }
