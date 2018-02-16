@@ -2,7 +2,6 @@ package com.halil.android.blogapp;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,6 @@ public class ArticlesAdapter extends RecyclerView.Adapter<RecyclerViewHolders>{
     public void onBindViewHolder(RecyclerViewHolders holder, final int position) {
         if(flag){
             holder.itemView.setSelected(false);
-            Log.d("JOJO","disselected is called");
         }
         if(RecyclerViewHolders.selectedItems.contains(position)){
             holder.itemView.setSelected(true);

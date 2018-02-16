@@ -4,6 +4,10 @@ package com.halil.android.blogapp;
  * Created by halil on 14.02.2018.
  */
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -43,6 +47,14 @@ public class RecyclerViewHolders extends RecyclerView.ViewHolder
                 RecyclerViewHolders.selectedItems.add(getAdapterPosition());
                 view.setSelected(true);
             }
+        } else{
+            DBHelper mydb = new DBHelper(view.getContext());
+            Article article = mydb.getArticleFromPositon(getAdapterPosition());
+            Intent updateArticleIntent = new Intent(view.getContext(), NewArticleActivity.class);
+            updateArticleIntent.putExtra("ARTICLE_ID",article.getId());
+            updateArticleIntent.putExtra("ARTICLE_TITLE",article.getTitle());
+            updateArticleIntent.putExtra("ARTICLE_CONTENT",article.getContent());
+            view.getContext().startActivity(updateArticleIntent);
         }
         if (flag && RecyclerViewHolders.selectedItems.size() == 0) {
             flag = false;
