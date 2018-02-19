@@ -6,4 +6,6 @@
     <color name="colorBackground">#303F9F</color>
     <color name="colorDivide">#303F9F</color>
     <color name="pink">#fe104d</color>
+    <color name="white">#FFFFFF</color>
+
 </resources>
