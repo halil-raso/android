@@ -34,7 +34,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="25dp">
             <Button
-                android:background="@drawable/buttonstylepink"
+                android:background="@drawable/buttonstyleorange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Learn More"
@@ -74,7 +74,7 @@
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:background="@drawable/buttonstylepink"
+            android:background="@drawable/buttonstyleorange"
             android:drawableRight="@drawable/ic_send_black_24dp"
             android:drawablePadding="10dp"
             android:text="Login"
