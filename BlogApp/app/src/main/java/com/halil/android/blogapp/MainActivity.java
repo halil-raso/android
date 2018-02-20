@@ -51,15 +51,25 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
+            case R.id.shareAction:
+                String shareBody = "Here is the share content body";
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject Here");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                break;
             case R.id.newAction:
                 Intent newArticleIntent = new Intent(this, NewArticleActivity.class);
                 startActivity(newArticleIntent);
                 break;
             case R.id.emailAction:
                 Intent mailIntent = new Intent(Intent.ACTION_SENDTO);
+                DBHelper db =  new DBHelper(this);
+                Article a = db.getArticleFromPositon(RecyclerViewHolders.selectedItems.get(0));
                 String uriText = "mailto:" + Uri.encode("krashow@gmail.com") +
-                        "?subject=" + Uri.encode("the subject") +
-                        "&body=" + Uri.encode("the body of the message");
+                        "?subject=" + Uri.encode("Article: "+a.getTitle()) +
+                        "&body=" + Uri.encode("Title: "+a.getTitle()+"\n"+a.getContent());
                 Uri uri = Uri.parse(uriText);
                 mailIntent.setData(uri);
                 startActivity(Intent.createChooser(mailIntent, "Send mail via"));
